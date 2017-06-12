@@ -1,0 +1,119 @@
+/* Styles for various HTML elements in the order that they appear */
+
+/* Setting up the background */
+#background {
+background-color: green;
+} 
+
+/* Setting up the header */
+header {
+height: 100px;
+width: 99%;
+border: 2px green;
+background-color: green;
+}
+
+/* Setting up the navigation menu */
+#navmenu {
+width: 250px;
+height: 30px;
+margin: auto;
+} 
+.navitem {
+list-style-type: none; 
+display: inline; 
+padding-right: 1.5em; 
+} 
+
+/* Setting up the introduction paragraph */
+.paragraph {
+color: orange;
+font-size: 25px;
+}
+
+/* Setting up the rightside content (right always comes first) */
+#rightside {
+	float: right;
+	width: 50%;
+}
+
+/* Setting up the leftside content */
+#leftside {
+	width: 50%;
+}
+
+/* Setting up the list */
+.wrap-list {
+height: 140px;
+width: 345px;
+border: 5px double white;
+}
+.listitem {
+	color: red;
+	font-size: 30px;
+}
+
+/* Setting up the trivia question */
+.wrap-trivia {
+height: 440px;
+width: 450px;
+border: 5px double white;
+}
+.wrap-text {
+color: #ff28e0;
+font-size: 2.1em;
+}
+#button {
+backround-color: red;
+color: orange;
+height: 40;
+width: 70;
+border-radius: 15;
+} 
+
+/* Setting up the footer */
+footer {
+height: 30px;
+width: 40%;
+border: 2px solid black;
+background-color: #aef880;
+} 
+
+/* Setting up the link properties */
+a:link { 
+color: red;
+} 
+a:visited { 
+color: blue;
+} 
+a:hover { 
+color: purple;
+}
+a:active { 
+color: orange;
+} 
+
+
+/*****************************************/
+/* Stuff for Lesson 6 and positions.html */
+/*****************************************/
+
+#one {
+height: 150px;
+width: 150px;
+background-color: red;
+}
+#two {
+height: 150px;
+width: 150px;
+background-color: blue;
+}
+#three {
+height: 150px;
+width: 150px;
+background-color: green;
+}
+
+
+
+

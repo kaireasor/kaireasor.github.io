@@ -1,0 +1,111 @@
+<html> <!-- tells the browser where the HTML (Hyper Text Markup Language) starts (Lesson 1.2)-->
+	<head> <!-- where you link to css and give website a title (Lesson 1.2)-->
+		<link type="text/css" rel="stylesheet" href="main.css" /> <!-- link to external style sheet (Lesson 4.2)-->
+		<title> The Turtle Site </title> <!-- title of website (Lesson 1.2)-->
+		<script> 
+
+			function banner(){ 
+			var text = confirm("Did The Picture Look THAT Fake To You?"); 
+			return text; 
+			} 
+
+			function answer(){ 
+				var radio = document.getElementsByName("button1"); 
+				var selection = false; 
+				var message = ""; 
+				for( var i = 0; i < radio.length; i++) { 
+					if(radio[i].value == "yes" && radio[i].checked == true) { 
+						selection = true; 
+					} //end if statement 
+				} //end for loop
+
+				if(selection == true) {
+					message = message + "<b><p style='color:black'>You Got It Right!</p></b>"; 
+				} else { 
+					message = message + "<b><p style='color:red'>Sorry. That's Not Right ):.</p></b>"; 
+				}
+				document.getElementById("response").innerHTML = message; 
+			} //end function answer
+
+		</script>
+	</head> 
+	<body id="background"> <!-- contains the HTML that shows up in website (Lesson 1.2)-->
+
+		<center><h1> The Turtle Site </h1></center> <!-- title at top of page (Lesson 1.4)-->
+
+		<!-- box with an image in it (Lesson 5.1)-->
+		<a href="http://simplycodingcourses.com" onclick="return banner()"> <!--- 8.1 -->
+		<header> <img src="http://img04.deviantart.net/37e3/i/2010/021/a/d/crocodile_snapping_turtle_by_shasel.jpg" width=150px /> </header><!--this-->
+		</a> 
+
+		<!-- The navigation menu goes here. It is an unordered list (ul,li). (Lesson 7.1, 1.6)-->
+		<!-- <a> is an anchor tag with HTTP Reference (href) (Lesson 1.7)-->	
+		<nav> 
+			<ul id="navmenu">
+				<li class="navitem"> <a href="games.html">  Games</a></li>
+				<li class="navitem"> <a href="videos.html"> Videos </a></li>
+				<li class="navitem"> <a href="index.html"> Home </a></li>
+			</ul>	
+		</nav>
+
+		<!-- header tag for the largest header -->
+		<h1> Everything That Is About <u>Turtles</u> <h1>
+
+		<!-- Creates a paragraph with italics (i) and highlight (mark) (Lesson 2.2)-->
+		<p class="paragraph"> It Is a Site That Will <i><mark>Fulfill All Of Your Turtle Needs!</mark></i> </p>
+
+		<!-- Divide some content into left and right side of page. Right side always goes first. (Lesson 7.3)-->
+
+		<div id="rightside">
+
+			<!-- Insert images with fixed width...not too large. (Lesson 1.7)-->
+			<img src="http://i.huffpost.com/gen/1099617/thumbs/o-TURTLE-facebook.jpg" width=300px /> <br><br> <!-- Insert a few breaks to space things out. -->
+			<img src="http://1.bp.blogspot.com/-3-JdcMwi0-Q/TlhCJTsIlSI/AAAAAAAADjc/4qVyeNSfTQg/s1600/Funny+turtle+wallpaper+desktop.jpg" width=300px/>
+
+		</div>
+
+		<div id="leftside">
+
+			<!-- The ordered fact list (ol,li) goes here. (Lesson 1.6)-->
+			<div class="wrap-list"> 
+				<ol>
+					<li class="listitem"> Turtle Facts </li>
+					<li class="listitem"> Turtle Votes </li>
+					<li class="listitem"> Turtle Fun!  </li>
+				</ol>
+			</div>
+
+			<!-- The quiz form list with user input (form,input) goes here (Lesson 3.2)-->
+			<h2> Turtle Quiz! </h2> <!-- header tag for the second largest header -->
+			<div class="wrap-trivia">
+				<p> How Fast Is The <span class="wrap-text">Fastest Turtle</span> In The World? </p>
+				<form>
+					<div id="response"> </div>
+					<input type="radio" name="button1" value="no"> 92 Mph <br> <!-- radio creates a "bubble in" circle (Lesson 3.2)-->
+					<input type="radio" name="button1" value="no"> 86 Mph <br>
+					<input type="radio" name="button1" value="yes"> 115 Mph <br>
+					<input type="button" value="Submit" id="button" onclick="answer()"> <!-- button creates an oval button (Lesson 3.2)-->
+				</form>
+			</div>
+
+			<br>
+
+			<!-- Insert url for a video. (Lesson 5.4)-->
+			<video width="400" height="220" controls autoplay>
+				<source src="http://www.w3schools.com/HTML/mov_bbb.mp4" type="video/mp4">
+				<source src="http://www.w3schools.com/HTML/mov_bbb.ogg" type="video/ogg">
+			</video> 
+
+		</div>
+
+		<hr> <!-- Creates a horizontal line across the page (Lesson 1.6)-->
+
+		<center> Kai <a href="http://simplycodingcourses.com"> My coding website </a> </center>
+
+		<br>
+
+		<!-- The footer is just the bottom scrolling (marquee) bar with text (Lesson 5.1)-->
+		<footer><marquee> Created By Kai R. </marquee></footer>
+
+	</body> 
+</html> 
