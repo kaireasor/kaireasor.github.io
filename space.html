@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Space </title>
+		<center> My Hiscore: 53 </center>
+		<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+		<script>
+			function start(){
+				sjs.open("target",800,500);
+
+				var background = new sjs.Image("Images/space4.png"); // (Lesson 3.2)
+				background.setSize(sjs.getWidth(),sjs.getHeight()); 
+
+				//Player
+				var player = new sjs.Image("Images/spaceship_left.png"); // (Lesson 3.2)
+				player.type = "player";
+				player.setSize(100,50);
+
+				sjs.onHit("player","left_screen, right_screen", function(x,y){
+					//x.destroy();
+				});
+
+				//Other Player Properties (Lesson 3.4) 
+				player.friction = .3;
+				player.accel = .4;
+
+				//Player Movement Properties
+				sjs.keyDown(RIGHT_KEY, function(){ // (Lesson 3.3) start
+					player.setImage("Images/spaceship_right.png");
+					player.pushRight();
+				});
+
+				sjs.keyDown(LEFT_KEY, function(){ 
+					player.setImage("Images/spaceship_left.png");
+					player.pushLeft();
+				});
+
+				sjs.keyDown(UP_KEY, function(){ 
+					player.pushUp();
+					player.setImage("Images/spaceship_up.png");
+				});
+
+				sjs.keyDown(DOWN_KEY, function(){ // (Lesson 3.3) end 
+					player.pushDown();
+					player.setImage("Images/spaceship_down.png");
+				});
+
+				var playM = new Audio('Music/infinite_strings.mp3'); 
+				var musicOn = false;
+				var toggle = true; 
+
+				sjs.keyDown(SPACE_KEY, function(){
+				if(toggle == true){
+				if(musicOn == false){
+				playM.play();
+				musicOn = true;
+				} else {
+				playM.pause();
+				musicOn = false;
+				}
+				toggle = false;
+				setTimeout(function(){
+				toggle = true;
+				},1000);
+				} //end if toggle statement
+				}); //end keyDown function
+
+				//Crumb Stuff
+				setInterval(function(){ // (Lesson 3.5) start
+					var newCrumb = new sjs.Image("Images/titan_left.png");
+					newCrumb.type = "crumbs";
+					newCrumb.friction = .2;
+					newCrumb.setGravity();
+					newCrumb.centerH();
+					newCrumb.noBounds = true;
+				},5000);
+
+				sjs.onHit("crumbs","bottom_screen",function(x,y){
+					x.destroy();
+				});
+
+				sjs.onHit("player","crumbs",function(x,y){ // (Lesson 3.6)
+					x.grow(60,30);
+					setTimeout(function(){
+						x.grow(-60,-30);
+					},4000);
+						y.destroy();
+				}); // (Lesson 3.5) end
+
+				//Survival Timer
+				setInterval(function(){
+					score = score + 1;
+					score_txt.setText("Score: "+score);
+				},1000);
+
+				//Enemies
+				setInterval(function(){ // (Lesson 4.1) start
+					var speed = 3.5
+					if(Math.random() > 0.5) { 
+						var enemy = new sjs.Image("Images/green_right.png"); 
+						enemy.type = "enemy";
+						enemy.setSize(100,50);
+						enemy.noBounds = true;
+						enemy.friction = 0; 
+						enemy.pushRight(speed); 
+						enemy.scaleSize(3.0 + Math.random() * 3.2);
+						enemy.moveTo(-enemy.getWidth(), Math.random()*(enemy.getClamp().y)); 
+					} else { // (Lesson 4.2) start
+						var enemy = new sjs.Image("Images/green_left.png");
+						enemy.type = "enemy";
+						enemy.setSize(100,50);
+						enemy.noBounds = true;
+						enemy.friction = 0; 
+						enemy.pushLeft(speed); 
+						enemy.scaleSize(3.0 + Math.random() * 1.2);
+						enemy.moveTo(sjs.getWidth(), Math.random()*(enemy.getClamp().y)); 
+					}
+				},2000); 
+
+				sjs.left_screen.offset(-500); // (Lesson 4.1) end
+				sjs.right_screen.offset(500); // (Lesson 4.2)
+
+				sjs.onHit("enemy",["right_screen","left_screen"], function(x,y){ // (Lesson 4.2)
+					x.destroy(); 
+				}); 
+
+				//Score
+				var score = 0; // (Lesson 4.4) 
+				var score_txt = new sjs.Text("Score: 0", 21, "orange"); 
+
+				sjs.onHit("player","enemy", function(x,y){  // (Lesson 4.3) start
+					if(x.getWidth() > y.getWidth() && 
+						x.getHeight() > y.getHeight()) {
+						
+						/*localStorage.setItem("score", score);*/						
+						x.grow(10,5); 
+					//if(score >= 20){
+						//sjs.destroyAll("enemy");
+						//window.location = "win.html";
+					//}
+					} else {
+						x.destroy(); 
+						window.location = "gameover.html"; 
+					}
+						y.destroy();
+				}); // (Lesson 4.3) end
+
+			} //end start function
+		</script>
+	</head>
+	<body onload="start()">
+		<h1> Space </h1>
+		<center><marquee> Just TRY To Beat My Highscore </marquee></center>
+		<div id="target" style="margin:auto;background:grey;"></div>
+	</body>
+</html>
