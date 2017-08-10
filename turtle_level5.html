@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Turtle Game </title>
+		<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+		<script>
+			function start(){
+			sjs.open("target", 1000, 600);
+
+			// Set up backround
+
+			var background = new sjs.Image("Images/background.png"); 
+			background.setSize(2000, 600);
+
+			// Load images (loadImageArray) for turtle food, log, fan, wood block, ground strip, and lava
+			// X=0 is left side of screen, X=2000 is right side of screen
+			// Y=0 is top of screen, Y=600 is bottom of screen
+
+			// Platforms (All platforms plus gaps must equal 2000 in X)
+			sjs.loadImageArray('[{"width":2000,"height":70,"x":0,"y":530,"sx":0,"sy":0,"topSpeed":10,"src":"Images/ground_strip.png","type":"platform","friction":0.05,"classType":"Image"},{"width":1375,"height":70,"x":625,"y":300,"sx":0,"sy":0,"topSpeed":10,"src":"Images/ground_strip.png","type":"platform","friction":0.05,"classType":"Image"}]')
+			// Fans
+			sjs.loadImageArray('[{"width":120,"height":60,"x":510,"y":480,"sx":0,"sy":0,"topSpeed":10,"src":"Images/fan2.png","type":"fan","friction":0.05,"classType":"Image"}]')
+			// Logs
+			sjs.loadImageArray('[{"width":272,"height":120,"x":2000,"y":180,"sx":0,"sy":0,"topSpeed":10,"src":"Images/log.png","type":"log","friction":0.05,"classType":"Image"}]')	
+			// Button		
+			sjs.loadImageArray('[{"width":40,"height":40,"x":1890,"y":500,"sx":0,"sy":0,"topSpeed":10,"src":"Images/button.png","type":"button","friction":0.05,"classType":"Image"}]')
+			// Score
+			sjs.loadImageArray('[{"width":70,"height":90,"x":1600,"y":180,"sx":0,"sy":0,"topSpeed":10,"src":"Images/fish.png","type":"food","friction":0.05,"classType":"Image"},{"width":70,"height":90,"x":1500,"y":180,"sx":0,"sy":0,"topSpeed":10,"src":"Images/fish.png","type":"food","friction":0.05,"classType":"Image"},{"width":70,"height":90,"x":1400,"y":180,"sx":0,"sy":0,"topSpeed":10,"src":"Images/fish.png","type":"food","friction":0.05,"classType":"Image"}]')	
+
+			// Turtle player properties
+
+			var player = new sjs.Image("Images/turtle2_r.png"); 
+			player.type = "player"; 
+			player.setSize(85,93); 
+			player.setGravity(3); 
+			player.moveTo(50,430);
+			player.friction = .3; 
+			player.noBounds = true; 
+
+			// Call scrollable function
+
+			sjs.scrollable(player, background);
+
+			// Score
+
+			var score = 0;
+			var score_txt = new sjs.Text("Score: 0", 21, "black");
+			score_txt.moveTo(0, 0);
+			score_txt.fixed = true;
+
+			//Turtle player movement controls
+
+			var r_images = ["Images/turtle2_r.png", "Images/turtle2_r.png", "Images/turtle2_r.png", "Images/turtle2_r.png", "Images/turtle2_r.png", "Images/turtle2_r.png", "Images/turtle2_r.png", "Images/turtle2_r.png"];
+
+			var l_images = ["Images/turtle2_l.png", "Images/turtle2_l.png", "Images/turtle2_l.png", "Images/turtle2_l.png", "Images/turtle2_l.png", "Images/turtle2_l.png", "Images/turtle2_l.png", "Images/turtle2_l.png"]; 
+
+			var r_facing = true;
+			var shell = false;
+			var r_track = 0;
+			var l_track = 0; 
+			var hitbutton = false;
+
+			sjs.keyDown(RIGHT_KEY, function(){
+				if(shell == false){
+					r_facing = true;
+					r_track = r_track + 1;
+					player.pushRight(2); 
+					player.setImage(r_images[r_track]);  
+
+					if(r_track == 7){
+						r_track = 0;
+					}
+				} 
+			}); //end Right key 
+
+			sjs.keyDown(LEFT_KEY, function(){
+				if(shell == false){
+					r_facing = false;
+					l_track = l_track + 1;
+					player.pushLeft(2);
+					player.setImage(l_images[l_track]);  
+					if(l_track == 7){
+						l_track = 0;
+					}
+				}
+			}); //end Left key
+
+			sjs.keyDown(DOWN_KEY, function(){
+				shell = true
+				player.setImage("Images/shell2.png")
+			}); //end Down key  
+
+			window.addEventListener("keyup", function(e){ 
+				if(e.keyCode == RIGHT_KEY){
+					if(shell == false){
+						player.setImage("Images/turtle2_r.png");
+						r_track = 0;
+					}
+				} else if (e.keyCode == LEFT_KEY){
+					if(shell == false){
+						player.setImage("Images/turtle2_l.png");
+						l_track = 0;
+					}
+				} else if (e.keyCode == DOWN_KEY){
+					if(r_facing == true){
+						player.setImage("Images/turtle2_r.png");
+						r_track = 0;
+					} else {
+						player.setImage("Images/turtle2_l.png");
+						l_track = 0;	
+					}					
+					shell = false;
+				} 
+			}); //end EventListener function 
+
+			// Bird properties and movement
+
+			setInterval(function(){ 
+					var speed = 6.5
+					if(Math.random() > 0.5) { 
+						var enemy = new sjs.Image("Images/cat_r.png"); 
+						enemy.type = "enemy";
+						enemy.setSize(200,150);
+						enemy.noBounds = true;
+						enemy.friction = 0; 
+						enemy.pushRight(speed); 
+						enemy.moveTo(-enemy.getWidth(), Math.random()*(enemy.getClamp().y)); 
+					} else { 
+						var enemy = new sjs.Image("Images/cat_l.png");
+						enemy.type = "enemy";
+						enemy.setSize(200,150);
+						enemy.noBounds = true;
+						enemy.friction = 0; 
+						enemy.pushLeft(speed); 
+						enemy.moveTo(sjs.getWidth(), Math.random()*(enemy.getClamp().y)); 
+					}
+				},2000);
+
+			// Music control
+
+			var playB = new Audio('Music/roar.mp3'); // For Bird
+			
+			var playM = new Audio('Music/turtle.mp3'); 
+			var musicOn = false;
+			var toggle = true; 
+
+			sjs.keyDown(SPACE_KEY, function(){
+				if(toggle == true){
+					if(musicOn == false){
+						playM.play();
+						musicOn = true;
+					} else {
+						playM.pause();
+						musicOn = false;
+					}
+					toggle = false;
+					setTimeout(function(){
+						toggle = true;
+					},1000);
+				} //end if toggle statement
+			}); //end Space key
+
+			// onHit functions for Turtle
+
+			sjs.onHit("player","bottom_screen",function(x,y){
+				sjs.stoppedBy(x,y);
+			}); 
+
+			sjs.onHit("player",["right_screen","left_screen","top_screen"],function(x,y){
+				sjs.stoppedBy(x,y); 
+			}); 
+
+			sjs.onHit("player","platform",function(x,y){
+				sjs.stoppedBy(x,y);
+			}); 
+
+			sjs.onHit("player","button",function(x,y){
+				hitbutton = true
+			});
+
+			sjs.onHit("player","fan",function(x,y){
+				if(hitbutton == true){
+					player.pushUp(60);
+				}
+			}); 
+
+			sjs.onHit("player","food", function(x,y){
+				score += 1;
+				score_txt.setText("Score: "+ score);
+				//localStorage.setItem("score", score);
+				y.destroy();
+			});	
+
+			sjs.onHit("player","log",function(x,y){
+				window.location = "Level_select.html";
+			}); 
+
+			// onHit functions for Bird
+
+			sjs.onHit("player","enemy",function(x,y){
+				if(shell == false){
+					playB.play();
+					wait(3000);
+					window.location = "gameover5.html";
+					if (shell == true){
+						y.destroy
+					}	
+				}
+				
+			});
+
+			sjs.onHit("enemy",["right_screen","left_screen"], function(x,y){ 
+				x.destroy(); 
+			}); 
+
+			sjs.onHit("enemy",["bottom_screen"], function(x,y){ 
+				x.destroy(); 
+			}); 
+
+			}//end start function
+
+			function wait(ms){ // This function causes a pause for (ms) milliseconds
+   				var start = new Date().getTime();
+  				 var end = start;
+   				while(end < start + ms) {
+     				end = new Date().getTime();
+  				}
+			}
+		</script>
+	</head>
+	<body onload="start()">
+		<h1>  </h1>
+
+		<div id="target" style="margin:auto;background:lightblue;"></div>
+	</body>
+</html>

@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<title> You Win! </title>
+		<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+		<script>
+			function start(){
+			sjs.open();
+			var menu_text = new sjs.Text("Congratulations!",28,"blue");
+
+			menu_text.centerH();
+
+			var startBtn1 = new sjs.Button("1", function(){
+			window.location = "turtle_level1.html";
+			});
+
+			startBtn1.moveTo(0,100);
+
+			var startBtn2 = new sjs.Button("2", function(){
+			window.location = "turtle_level2.html";
+			});
+
+			startBtn2.moveTo(0,130);
+
+			var startBtn3 = new sjs.Button("3", function(){
+			window.location = "turtle_level3.html";
+			});
+
+			startBtn3.moveTo(0,160);
+
+			var startBtn4 = new sjs.Button("4", function(){
+			window.location = "turtle_level4.html";
+			});
+
+			startBtn4.moveTo(0,190);
+
+			var startBtn5 = new sjs.Button("Bonus", function(){
+				window.location = "turtle_level5.html";
+			});
+
+			startBtn5.moveTo(30,100);
+
+		}
+		</script>
+	</head>
+	<body onload="start()">
+
+		<div id="target" style="margin:auto;background:grey;"></div>
+	</body>
+</html>
