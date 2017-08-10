@@ -1,29 +1,27 @@
+<!DOCTYPE html>
 <html>
 	<head>
-		<title> You Win! </title>
+		<title> Win </title>
 		<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
 		<script>
 			function start(){
-			sjs.open();
-			var menu_text = new sjs.Text("You Win!",28,"yellow");
+				sjs.open();
+				var win_txt = new sjs.Text("Victory Is Yours!", 44, "orange");
+				win_txt.center().offset(0,-50);
 
-			menu_text.centerH();
-
-			var startBtn = new sjs.Button("Mission Restart", function(){
-			window.location = "fish.html";
-			});
-
-			startBtn.center();
-
-			var info_text = new sjs.Text("Good Job!",20,"yellow");
-
-			info_text.bottom().centerH(); 
-		}
+				var menuBtn = new sjs.Button("Main Menu", function(){
+					window.location = "index.html";
+				});
+				startBtn.center();
+				
+				var score_txt = new sjs.Text("Score: 0", 21, "orange");
+				score_txt.setText("Score: " +localStorage.getItem("score")); 
+			}
 		</script>
 	</head>
-	<body onload="start()">
-		<h1> Space </h1>
+<body onload="start()">
+<h1> You Win </h1>
 
-		<div id="target" style="margin:auto;background:grey;"></div>
-	</body>
+<div id="target" style="margin:auto;background:grey;"></div>
+</body>
 </html>
